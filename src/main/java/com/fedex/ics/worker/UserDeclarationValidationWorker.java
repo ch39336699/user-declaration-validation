@@ -46,7 +46,7 @@ public class UserDeclarationValidationWorker {
     for (int i = 0; i < importantInfo.length; i++) {
       // Pause for 4 seconds
       try {
-        Thread.sleep(10000);
+        Thread.sleep(1000);
       } catch (InterruptedException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
@@ -60,10 +60,6 @@ public class UserDeclarationValidationWorker {
     Date today = Calendar.getInstance().getTime();
     // Using DateFormat format method we can create a string
     // representation of a date with the defined format.
-    String reportDate = df.format(today);
-    int app = Integer.parseInt(appID);
-    logger.info("Writing to Test Database");
-    String message = "APPID " + appID + " Processed shipment " + shipment;
     this.sendRespose();
   }
 

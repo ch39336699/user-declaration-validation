@@ -30,7 +30,7 @@ import com.fedex.ics.worker.UserDeclarationValidationWorker;
 public class KafkaReceiverConfig {
   private static final Log logger = LogFactory.getLog(KafkaReceiverConfig.class);
     
-  @Value("localhost:9092")
+  @Value("c0002666.test.cloud.fedex.com:9092")
   private String bootstrapServers;
   
   @Autowired
@@ -43,7 +43,7 @@ public class KafkaReceiverConfig {
       props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
       props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
       props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-      props.put(ConsumerConfig.GROUP_ID_CONFIG, "timeOfArrival");
+      props.put(ConsumerConfig.GROUP_ID_CONFIG, "userDeclVal");
       props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
       return props;
   }
@@ -73,10 +73,9 @@ public class KafkaReceiverConfig {
                      // @Header(KafkaHeaders.RECEIVED_TIMESTAMP) Long timestamp,
                       ) {
     String[] values = payload.split(":");
-    logger.info("User Declaration Validation Recieved: " + values[0] + " appID: " + appID + " Shipment: " + values[1]);
-    if(appID.contains("1002"))
+    if(appID.contains("1008"))
     {
-      logger.info("User Declaration Validation Processing... " + values[1]);
+      logger.info("User Declaration Validation Processing... TaskID:" + values[0]  + " OID:" + values[1]);
       worker.doWork(values[0], appID, values[1]);
     }
   }
